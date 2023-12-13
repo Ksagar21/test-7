@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      
+      <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title> UPDATE WINDOW </title>
+      <style>
+        body {
+        background: #ecf0f3;
+    }
+      </style>
+</head>
+  <body>  
+  <div class="container mt-5">
+        <h1> UPDATE WINDOW</h1>
+    
+        <form method="post">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" name="name" class="form-control" value="{{ item.name }}" required>
+            </div>
+
+<div class="form-group">
+    <label for="operationtheatre">Department:</label>
+    <select name="operationtheatre" class="form-control" required>
+        <option value="EMERGENCY" {% if item.operationtheatre == 'Emergency' %}selected{% endif %}>Emergency</option>
+        <option value="GENERAL" {% if item.operationtheatre == 'General' %}selected{% endif %}>General</option>
+        <option value="ICU" {% if item.operationtheatre == 'ICU' %}selected{% endif %}>ICU</option>
+        <option value="OT 1" {% if item.operationtheatre == 'OT1' %}selected{% endif %}>OT 1</option>
+        <option value="OT 2" {% if item.operationtheatre == 'OT2' %}selected{% endif %}>OT 2</option>
+        <option value="SPECIAL ROOM" {% if item.operationtheatre == 'SpecialRoom' %}selected{% endif %}>Special Room</option>
+    </select>
+</div>
+
+        
+           <div class="form-group">
+                <label for="doctorassigned">Assigned Doctor:</label>
+                <select name="doctorassigned" class="form-control" required>
+                    <option value="Dr. Amir" {% if item.doctorassigned == 'Dr. Amir' %}selected{% endif %}>Dr. Amir</option>
+                    <option value="Dr. Sage" {% if item.doctorassigned == 'Dr. Sage' %}selected{% endif %}>Dr. Sage</option>
+                    <option value="Dr. Joseph" {% if item.doctorassigned == 'Dr. Joseph' %}selected{% endif %}>Dr. Joseph</option>
+                    <option value="Dr. Mestry" {% if item.doctorassigned == 'Dr. Mestry' %}selected{% endif %}>Dr. Mestry</option> 
+                </select>
+            </div>
+        
+        <div class="form-group">
+                <label for="datetime">Date and Time:</label>
+                <input type="text" name="datetime" class="form-control" value="{{ item.datetime | default(current_datetime) }}">
+            </div>
+
+        <div class="form-group">
+                <label for="status">Status:</label>
+                <select name="status" class="form-control" required>
+                    <option value="Pending Medical Reports" {% if item.status == 'Pending Medical Reports' %}selected{% endif %}>Pending Medical Reports</option>
+                    <option value="Pending Samples" {% if item.status == 'Pending Samples' %}selected{% endif %}>Pending Samples</option>
+                    <option value="In Process Operation" {% if item.status == 'In Process Operation' %}selected{% endif %}>In Process Operation</option>
+                    <option value="Operation Done" {% if item.status == 'Operation Done' %}selected{% endif %}>Operation Done</option>
+                    <option value="Payment Pending" {% if item.status == 'Payment Pending' %}selected{% endif %}>Payment Pending</option>
+                    <option value="Payment Done" {% if item.status == 'Payment Done' %}selected{% endif %}>Payment Done</option>
+                </select>
+            </div>
+          
+    <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+  </div>
+
+
+
+<script>
+      document.getElementById('date').valueAsDate = new Date();
+      
+      var currentTime = new Date();
+        var hours = currentTime.getHours();
+       var minutes = currentTime.getMinutes();
+        var formattedTime = hours + ':' + (minutes < 10 ? '0' : '') + minutes;
+        var timeInput = document.createElement('input');
+        timeInput.type = 'time';
+        timeInput.value = formattedTime;
+        timeInput.name = 'time';
+        timeInput.className = 'form-control';
+        document.getElementById('submissionForm').appendChild(timeInput);            
+</script>        
+</body>
+</html>

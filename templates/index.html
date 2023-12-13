@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>HOME PAGE</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="/templates/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+
+    <title>Home Page</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+<script>
+  function searchEntries() {
+      var input,filter,table,tr,td,i,txtValue ;
+      input = document.getElementById("searchInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("entriesTable");
+      tr = table.getElementsByTagName("tr");
+
+      for (i=0;i<tr.length;i++) {
+          td = tr[i].getElementsByTagName("td")[0];
+          if(td) {
+              txtValue = td.textContent || td.innerText;
+              if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                  tr[i].style.display = "";
+              }
+              else{
+                  tr[i].style.display = "none";
+              }
+          }
+      };
+  }
+</script>
+<style>
+body{
+  background: #ecf0e3;
+}
+</style>
+</head>
+<body>
+<!--Adding Nav Bar for the heading -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	<div class="container-fluid">
+	  <a class="navbar-brand" href="\">MED | CARE</a>
+	  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	  </button>
+	  <div class="collapse navbar-collapse" id="navbarNav">
+		<ul class="navbar-nav">
+		  <li class="nav-item">
+			<a class="nav-link active" aria-current="page" href="\">Home</a>
+		  </li>
+		  <li class="nav-item">
+			<a class="nav-link active" href="/admin">Admin Login</a>
+		  </li>
+		</ul>
+	  </div>
+	</div>
+  </nav>
+  <br><br>
+
+  <h1 style="text-align: center;">Welcome To Med + Care Operation Center</h1>
+
+  <input
+  style="text-align: center;"
+  type="text" 
+  id="searchInput" 
+  class="form-control"
+  onkeyup="searchEntries()" 
+  placeholder="Search By Name..."
+  style="width: 40%;"
+  />
+
+{% if data %}
+<table class="table table-hover" id="entriesTable">
+    <thead class="thead thead-dark">
+        <tr>
+            <th scope="col">Patient Name</th>
+            <th scope="col">Rooms & Ward</th>
+            <th scope="col">Assigned Doctor</th>
+            <th scope="col">Date and Time</th>
+            <th scope="col">Status</th>
+        </tr>
+    </thead>
+    <tbody class="table-group-divider">
+        {% for item_key, item in data.items() %}
+        <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ item.operationtheatre }}</td>
+            <td>{{ item.doctorassigned }}</td>
+            <td>{{ item.datetime }}</td>
+            <td>{{ item.status }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+  {% else %}
+  <p>No entries available</p>
+  {% endif %}
+</body>
+</html>
